@@ -16,7 +16,9 @@ import {
   ClipboardCheck,
   Send,
   Menu,
-  X
+  X,
+  Sun,
+  Moon
 } from "lucide-react";
 
 // Project Data
@@ -146,6 +148,7 @@ const NAV_LINKS = [
 ];
 
 export default function Home() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [activeSkillTab, setActiveSkillTab] = useState<"backend" | "frontend" | "devops">("backend");
   const [terminalInput, setTerminalInput] = useState("");
   const [terminalHistory, setTerminalHistory] = useState<Array<{ cmd: string; output: string | React.ReactNode }>>([
@@ -155,6 +158,27 @@ export default function Home() {
   const [contactState, setContactState] = useState({ name: "", email: "", message: "" });
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isLight = document.documentElement.classList.contains("light");
+      setTheme(isLight ? "light" : "dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    if (typeof window !== "undefined") {
+      if (nextTheme === "light") {
+        document.documentElement.classList.add("light");
+        localStorage.theme = "light";
+      } else {
+        document.documentElement.classList.remove("light");
+        localStorage.theme = "dark";
+      }
+    }
+  };
   
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -317,6 +341,16 @@ export default function Home() {
 
           {/* Right controls */}
           <div className="flex items-center space-x-2 sm:space-x-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded bg-cyber-cyan/10 hover:bg-cyber-cyan/20 border border-cyber-cyan/20 text-cyber-cyan hover:text-cyber-lime transition-all cursor-pointer mr-1 animate-pulse"
+              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
+
             <a 
               href="https://github.com/Jhuleebaba" 
               target="_blank" 

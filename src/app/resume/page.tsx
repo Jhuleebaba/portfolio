@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { 
   ArrowLeft, 
   Printer, 
@@ -10,11 +10,36 @@ import {
   ExternalLink,
   Briefcase,
   GraduationCap,
-  Code
+  Code,
+  Sun,
+  Moon
 } from "lucide-react";
 import Link from "next/link";
 
 export default function Resume() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isLight = document.documentElement.classList.contains("light");
+      setTheme(isLight ? "light" : "dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    if (typeof window !== "undefined") {
+      if (nextTheme === "light") {
+        document.documentElement.classList.add("light");
+        localStorage.theme = "light";
+      } else {
+        document.documentElement.classList.remove("light");
+        localStorage.theme = "dark";
+      }
+    }
+  };
+
   const handlePrint = () => {
     window.print();
   };
@@ -31,13 +56,25 @@ export default function Resume() {
           <span>./back-to-console</span>
         </Link>
         
-        <button 
-          onClick={handlePrint}
-          className="px-4 py-2 bg-cyber-cyan hover:bg-cyber-cyan/90 text-cyber-dark font-mono font-bold text-xs rounded-lg flex items-center space-x-2 transition-all shadow-md shadow-cyber-cyan/10 cursor-pointer"
-        >
-          <Printer size={14} />
-          <span>Print / Save PDF</span>
-        </button>
+        <div className="flex items-center space-x-2">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-cyber-cyan/10 hover:bg-cyber-cyan/20 border border-cyber-cyan/20 text-cyber-cyan hover:text-cyber-lime transition-all cursor-pointer mr-1"
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
+
+          <button 
+            onClick={handlePrint}
+            className="px-4 py-2 bg-cyber-cyan hover:bg-cyber-cyan/90 text-cyber-dark font-mono font-bold text-xs rounded-lg flex items-center space-x-2 transition-all shadow-md shadow-cyber-cyan/10 cursor-pointer"
+          >
+            <Printer size={14} />
+            <span>Print / Save PDF</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Resume Sheet */}
