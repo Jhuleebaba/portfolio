@@ -154,3 +154,58 @@ body {
 .overscroll-contain {
   overscroll-behavior: contain;
 }
+
+/* ─── Print Styles ─── */
+@media print {
+  /* Force a global light-mode reset on all page elements */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, 
+  body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Hide print-hidden and UI control elements */
+  .print-hidden,
+  [class*="print:hidden"],
+  header,
+  footer,
+  nav,
+  button,
+  a[href^="/"] {
+    display: none !important;
+  }
+
+  /* Disable scanline overlays and animations */
+  body::before,
+  .scanlines::before,
+  .scanlines::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Reset print container to occupy full page space */
+  article {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: portrait;
+  }
+}

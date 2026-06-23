@@ -44,7 +44,7 @@ const PROJECTS = [
     title: "Bezalel SaaS",
     subtitle: "Multi-Tenant School Management Platform",
     type: "Commercial SaaS Platform",
-    liveUrl: "https://bezalel-three.vercel.app",
+    liveUrl: "https://www.beze.ng",
     githubUrl: "https://github.com/Jhuleebaba/bezalel_backend",
     status: "online",
     latency: "34ms",
@@ -59,10 +59,10 @@ const PROJECTS = [
   },
   {
     id: "ghs",
-    title: "Goodly Heritage Portal",
+    title: "Goodly Heritage Comprehensive High School Portal",
     subtitle: "Dedicated School Web & Mobile Ecosystem",
     type: "Dedicated Enterprise Deployment",
-    liveUrl: "https://ghsportal-frontend.vercel.app",
+    liveUrl: "https://www.goodlyheritageschools.com.ng",
     githubUrl: "https://github.com/Jhuleebaba/Ghsportal_frontend",
     status: "online",
     latency: "31ms",
@@ -141,6 +141,7 @@ const NAV_LINKS = [
   { href: "#projects", label: "./projects" },
   { href: "#skills", label: "./skills" },
   { href: "#status", label: "./sys-monitor" },
+  { href: "/resume", label: "./resume" },
   { href: "#contact", label: "./contact" },
 ];
 
@@ -212,9 +213,23 @@ export default function Home() {
             <div><span className="text-cyber-cyan">about</span> — Who is Julius?</div>
             <div><span className="text-cyber-cyan">projects</span> — Live deployments</div>
             <div><span className="text-cyber-cyan">skills</span> — Technical stack</div>
+            <div><span className="text-cyber-cyan">resume</span> — Open interactive resume</div>
             <div><span className="text-cyber-cyan">contact</span> — Socials & links</div>
             <div><span className="text-cyber-cyan">clear</span> — Flush buffer</div>
             <div><span className="text-cyber-cyan">uptime</span> — System health</div>
+          </div>
+        );
+        break;
+      case "resume":
+        output = (
+          <div className="font-mono text-xs text-slate-300 space-y-1.5">
+            <p className="text-cyber-lime font-semibold">Julius Adereti Resume Payload:</p>
+            <p>Interactive print-ready resume has been compiled.</p>
+            <p>
+              <a href="/resume" className="text-cyber-cyan underline font-bold hover:text-cyber-lime transition-colors">
+                [CLICK HERE TO VIEW & PRINT RESUME]
+              </a>
+            </p>
           </div>
         );
         break;
@@ -225,9 +240,9 @@ export default function Home() {
         output = (
           <div className="font-mono text-xs text-slate-300 space-y-1">
             <p className="text-cyber-lime font-semibold">Live Production Repositories:</p>
-            <p>1. <span className="text-cyber-cyan font-bold">Beze Exam Suite</span> — FastAPI / Celery / Next.js 16</p>
-            <p>2. <span className="text-cyber-cyan font-bold">Bezalel SaaS</span> — Flask / PyMongo / Paystack</p>
-            <p>3. <span className="text-cyber-cyan font-bold">Goodly Heritage Portal</span> — Expo Mobile / Web</p>
+            <p>1. <span className="text-cyber-cyan font-bold">Beze Exam Suite</span> — FastAPI / Celery / Next.js 16 (exam.beze.ng)</p>
+            <p>2. <span className="text-cyber-cyan font-bold">Bezalel SaaS</span> — Flask / PyMongo / Paystack (www.beze.ng)</p>
+            <p>3. <span className="text-cyber-cyan font-bold">Goodly Heritage Comprehensive High School</span> — Expo Mobile / Web (www.goodlyheritageschools.com.ng)</p>
             <p>4. <span className="text-cyber-cyan font-bold">MMS CBT System</span> — React 19 / Theory & MCQ</p>
             <p>5. <span className="text-cyber-cyan font-bold">Entrance Exam Backend</span> — Node.js / Express</p>
           </div>
@@ -446,7 +461,7 @@ export default function Home() {
 
             {/* Quick-command buttons */}
             <div className="bg-slate-950 border-t border-cyber-cyan/10 px-3 py-2 flex flex-wrap gap-2 justify-center shrink-0">
-              {["about", "projects", "skills", "uptime", "help"].map(cmd => (
+              {["about", "projects", "skills", "resume", "uptime", "help"].map(cmd => (
                 <button
                   key={cmd}
                   onClick={(e) => { e.stopPropagation(); executeCommand(cmd); }}
